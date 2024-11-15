@@ -32,6 +32,8 @@
     margin-right: 0.75rem;
     top: -1px;
     background-size: cover;
+
+    display: flex;
 }
 
 .bi-house-door-fill-nav-menu {
@@ -69,6 +71,7 @@
         align-items: center;
         line-height: 3rem;
         width: 100%;
+        word-wrap: break-word;
     }
 
 .nav-item ::deep a.active {
@@ -89,6 +92,35 @@
     display: block;
 }
 
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative; 
+    display: inline-block;
+    /* color: white; */
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    /* position: absolute;
+    z-index: 1; */
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    display: block;
+    /* color: black;
+    padding: 12px 16px;
+    text-decoration: none; */
+}
+
+/* Show the dropdown content on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 @media (min-width: 641px) {
     .navbar-toggler {
         display: none;
@@ -103,3 +135,4 @@
         overflow-y: auto;
     }
 }
+

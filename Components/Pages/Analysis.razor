@@ -1,0 +1,25 @@
+﻿@page "/Projects/Analysis"
+
+<h1>Voter Spatial Analysis</h1>
+<p class="lead">An analysis of voter share by healthcare access</p>
+
+<section class="mt-4">
+    <h2>Project Overview</h2>
+    <p>This project is a spatial analysis of voter share by healthcare access, exploring the relationship between healthcare infrastructure and voter participation in the United States. By analyzing healthcare facility locations and voter party share, while accounting for spatial variation, the goal is to identify patterns and trends that may influence electoral outcomes and public health policy.</p>
+</section>
+
+<section class="mt-4">
+    <h2>Key Features</h2>
+    <ul>
+        <li><strong>Data Sources:</strong> Utilized hospital location data from CMS and election records as reported by ClearElections to compile relevant information for the analysis. An ArcGIS dataset was used to simplify location cross-references.</li>
+        <li><strong>Spatial Analysis:</strong> Leveraged R tooling such as the Fields library to modeling the spatial process alongside healthcare as a covariate.</li>
+        <li><strong>Data Visualization:</strong> Initial data exploration using base R tooling, with further analysis assisted by the Fields package.</li>
+        <li><strong>Statistical Modeling:</strong> Modeled election share as a Gaussian process with healthcare as a covariate.</li>
+    </ul>
+</section>
+
+<iframe width=1600 height=1920 frameborder="0" src="./finalAnalysis.html"></iframe>
+
+@code {
+
+}
