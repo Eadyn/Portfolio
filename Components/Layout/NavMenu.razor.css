@@ -21,6 +21,11 @@
     /* align-items: center; */
 }
 
+.navbar-toggler-icon {
+    /* Image loaded from ./images/menu.png */
+    /* background-image:  */
+}
+
 .navbar-toggler:checked {
     background-color: rgba(255, 255, 255, 0.5);
     color: white;
