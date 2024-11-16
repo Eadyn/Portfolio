@@ -1,56 +1,52 @@
-﻿@page "/About"
-@using Microsoft.AspNetCore.Components
-@implements IDisposable
+﻿@page "/about"
+@using Microsoft.AspNetCore.Components;
+@rendermode InteractiveAuto
 
-<div class="container mt-5">
-    <div class="row align-items-center">
+<div class="    mt-5">
+    <div class="col-md-9">
+        <h1>About Me</h1>
 
-        <div class="col-md-9">
-            <h1>About Me</h1>
-
-            <div class="slideshow-container">
-                @for (int i = 0; i < SlideCount; i++)
-                {
-                    <div style="display: @(i == slideIndex ? "block" : "none")">
-                        <div style="position: relative; display: inline-block;">
-                            <img src="./about_img@(i).jpg" alt="Slide @(i)" style="width:200px">
-                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; color: white; background-color: rgba(0, 0, 0, 0.5); text-align: center;">
-                                <strong>@(captionList[i])</strong>
-                            </div>
+        <div class="slideshow">
+            @for (int i = 0; i < SlideCount; i++)
+            {
+                <div style="display: @(i == slideIndex ? "block" : "none")">
+                    <div style="position: relative; display: inline-block;">
+                        <img src="./about_img@(i).jpg" alt="Slide @(i)" style="height: 250px;">
+                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; color: white; background-color: rgba(0, 0, 0, 0.5); text-align: center;">
+                            <strong>@(captionList[i])</strong>
                         </div>
                     </div>
-                }
-                <br>
-                <div>
-                    @for (int i = 0; i < SlideCount; i++)
-                    {
-                        <span class="dot @(i == slideIndex ? "active" : "")" @onclick="(() => SetSlide(i))"></span>
-                    }
                 </div>
-
-            </div>
+            }
             <br>
+            <div>
+                <span class="dot @(slideIndex == 0 ? "active" : "")" @onmouseover="(() => SetSlide(0))"></span>
+                <span class="dot @(slideIndex == 1 ? "active" : "")" @onmouseover="(() => SetSlide(1))"></span>
+                <span class="dot @(slideIndex == 2 ? "active" : "")" @onmouseover="(() => SetSlide(2))"></span>
+            </div>
 
-            <p>👋 Hi there! I’m <strong>Eadyn</strong>, a computer science student and aspiring data scientist with a passion for turning complex datasets into actionable insights. I’m particularly interested in how AI and machine learning can transform healthcare and make a real impact on people’s lives.</p>
-            
-            <p>With a strong foundation in Python and SQL, and hands-on experience in data analysis and image processing, I enjoy solving real-world problems with a mix of creativity and precision. My recent projects include building predictive models for healthcare data and designing interactive visualizations that bring insights to life.</p>
-            
-            <p>📈 <strong>Career Goals</strong>: I aim to join a dynamic team where I can leverage my analytical skills to contribute to impactful projects, especially those involving health analytics, precision medicine, or data-driven decision-making.</p>
-            
-            <p>Outside of tech, I’m always up for a hike or a good sci-fi novel (my favorite is <i>Dune</i>). Let’s connect—I’m always excited to collaborate on meaningful projects or chat about the future of data in healthcare.</p>
-
-            <!-- Contact Buttons -->
-            <a href="mailto:thompsone1150@gmail.com" class="btn btn-primary mt-3 me-2">Email Me!</a>
-            <a href="https://www.linkedin.com/in/eadyn-thompson-44a140181/" target="_blank" class="btn btn-secondary mt-3">Add me on LinkedIn!</a>
         </div>
+        <br>
+
+        <p>👋 Hi there! I’m <strong>Eadyn</strong>, a computer science student and aspiring data scientist with a passion for turning complex datasets into actionable insights. I’m particularly interested in how AI and machine learning can transform healthcare and make a real impact on people’s lives.</p>
+        
+        <p>With a strong foundation in Python and SQL, and hands-on experience in data analysis and image processing, I enjoy solving real-world problems with a mix of creativity and precision. My recent projects can be found in the 'Projects' tab.</p>
+        
+        <p>📈 <strong>Career Goals</strong>: I aim to join a dynamic team where I can leverage my analytical skills to contribute to impactful projects, especially those involving health analytics, precision medicine, or data-driven decision-making.</p>
+        
+        <p>Outside of tech, I’m always up for a hike or a good sci-fi novel (my favorite is <i>Dune</i>). Let’s connect—I’m always excited to collaborate on meaningful projects or chat about the future of data in healthcare.</p>
+
+        <!-- Contact Buttons -->
+        <a href="mailto:thompsone1150@gmail.com" class="btn btn-primary mt-3 me-2">Email Me!</a>
+        <a href="https://www.linkedin.com/in/eadyn-thompson-44a140181/" target="_blank" class="btn btn-secondary mt-3">Add me on LinkedIn!</a>
     </div>
 </div>
 
 
 @code {
     private int slideIndex = 0;
+    private int selectedSlide = 0;
     private int SlideCount = 3;
-    private Timer? timer;
 
     private string[] captionList = new string[]
     {
@@ -59,26 +55,10 @@
         "My Cat Goop!"
     };
 
-    protected override void OnInitialized()
-    {
-        // Initialize the timer to change the slide every 2 seconds
-        timer = new Timer(ChangeSlide, null, 0, 2000);
-    }
-
-    private void ChangeSlide(object? state)
-    {
-        slideIndex = (slideIndex + 1) % SlideCount;
-        InvokeAsync(StateHasChanged);
-    }
 
     private void SetSlide(int index)
     {
         slideIndex = index;
-        StateHasChanged();
-    }
-
-    public void Dispose()
-    {
-        timer?.Dispose();
+        Console.WriteLine($"Slide index set to: {index}");
     }
 }
