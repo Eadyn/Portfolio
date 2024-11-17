@@ -50,6 +50,6 @@ h1:focus {
     border-color: #929292;
 }
 
-.row-container {display: flex; width: 100%; height: 100%; flex-direction: column; background-color: blue; overflow: hidden;}
+.row-container {display: flex; width: 100%; height: 100%; flex-direction: column; background-color: #08F; overflow: hidden;}
 .first-row {background-color: lime; }
 .second-row { flex-grow: 1; border: none; margin: 0; padding: 0; }

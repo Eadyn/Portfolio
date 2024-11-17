@@ -1,25 +1,45 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div>
-        <NavMenu />
-    </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://github.com/Eadyn" target="_blank" style="width: 32px">
-                <img src="./images/github.png"  target="_blank" style="width: 32px">
-            </a>
-            <a href="https://www.linkedin.com/in/eadyn-thompson-44a140181/" target="_blank" style="width: 48px">
-                <img src="./images/linkedin.png" href="https://www.linkedin.com/in/eadyn-thompson-44a140181/" target="_blank" style="width: 48px">
-            </a>
+<div class="row-container flex-row topnav">
+    <div class="row-container flex-row topnav">
+        <div>
+            <NavLink class="px-2" href="" Match="NavLinkMatch.All">
+                <img src="./images/favicon.png" style="width: 32px" class="border">
+            </NavLink>
         </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+        <div>
+            <NavLink class="px-2" href="About">
+                <span class="nav-item">About Me</span>
+            </NavLink>
+        </div>
+        <div>
+            <NavLink class="px-2" href="Resume.pdf" target="_blank">
+                <span class="nav-item">Resumé!</span>
+            </NavLink>
+        </div>
+        <div>
+            <NavLink class="px-2" href="Projects">
+                <span class="nav-item">Projects!</span>
+            </NavLink>
+        </div>
+    </div>
+    <div class="float-end">
+        <a href="https://github.com/Eadyn" target="_blank" style="width: 32px">
+            <img src="./images/github.png" target="_blank" style="width: 32px">
+        </a>
+    </div>
+    <div class="float-end">
+        <a href="https://www.linkedin.com/in/eadyn-thompson-44a140181/" target="_blank" style="width: 48px">
+            <img src="./images/linkedin.png" href="https://www.linkedin.com/in/eadyn-thompson-44a140181/"
+                target="_blank" style="width: 48px">
+        </a>
+    </div>
 </div>
+
+<article class="content px-4">
+    @Body
+</article>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
