@@ -1,5 +1,5 @@
-﻿@inherits LayoutComponentBase
-
+﻿@using portfolio.Components.Pages
+@inherits LayoutComponentBase
 
 <div class="row-container flex-row topnav">
     <div class="row-container flex-row topnav">
@@ -9,18 +9,18 @@
             </NavLink>
         </div>
         <div>
-            <NavLink class="px-2" href="About">
+            <NavLink class="px-2 link-light" href="About">
                 <span class="nav-item">About Me</span>
             </NavLink>
         </div>
         <div>
-            <NavLink class="px-2" href="Resume.pdf" target="_blank">
-                <span class="nav-item">Resumé!</span>
+            <NavLink class="px-2 link-light" href="Projects">
+                <span class="nav-item">Projects!</span>
             </NavLink>
         </div>
         <div>
-            <NavLink class="px-2" href="Projects">
-                <span class="nav-item">Projects!</span>
+            <NavLink class="px-2 link-light" href="Resume.pdf" target="_blank">
+                <span class="nav-item">Resumé!</span>
             </NavLink>
         </div>
     </div>
@@ -46,3 +46,5 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+<Footer />
