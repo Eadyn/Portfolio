@@ -1,0 +1,45 @@
+﻿@page "/Projects/WriteQuickly"
+@inject IJSRuntime JSRuntime
+@inherits WriteQuicklyBase
+@namespace WriteQuickly.Pages.Projects
+
+<div class="wq">
+    <div class="container">
+        <div class="row fw-bold">
+            <div class="col">
+                <h1>WriteQuickly</h1>
+            </div>
+            <div class="col">
+                <figure class="text-end flex-end ">
+                    <blockquote class="blockquote">
+                        <p>“The first draft is just you telling yourself the story."</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                        <span style="color: whitesmoke;" class="fst-italic">
+                            Terry Pratchett
+                        </span>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <textarea class="form-control" aria-label="With textarea" placeholder="Write here!" cols="40" rows="8" value="@Text"></textarea>
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" @onclick="CopyToClipboard">
+                    <span class="fw-bolder">Copy</span>
+                </button>
+            </div>
+            <div class="col text-end">
+                <button type="button" class="btn btn-primary" @onclick="ClearText">
+                    <span class="fw-bolder">Clear</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

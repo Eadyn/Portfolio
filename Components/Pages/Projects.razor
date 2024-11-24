@@ -1,38 +1,45 @@
 ﻿@page "/Projects/"
 
-<h1 class="font-weight-bold">Projects</h1>
+<div id="Projects" style="height: 100vh; margin-top: 50px;">
+    <div class="col-md-9 projects">
+        <h1 class="font-weight-bold">Projects</h1>
 
-@* Begin project cards 3 per row*@
-<div class="card-group">
-    
-        <div class="card">
-            <img class="card-img-top img-thumbnail" style="width: 32vw;" src="./images/code.png" alt="Website code image">
-            <div class="card-body">
-                <h5 class="card-title">Portfolio Website</h5>
-                <p class="card-text">I work through the tools and technologies I used in setting up this website!</p>
-                <a href="/Projects/Website" class="btn btn-primary">Read the Writeup!</a>
+        @* Begin project cards 3 per row*@
+        <div class="card-group">
+
+            <div class="card">
+                <img class="card-img-top" style="width: 32vw; filter:blur(2px); height: 35vh;" src="./images/code.png"
+                    alt="Website code image">
+                <div class="card-body">
+                    <h5 class="card-title">Portfolio Website</h5>
+                    <p class="card-text">I work through the tools and technologies I used in setting up this website!
+                    </p>
+                    <a href="/Projects/Website" class="btn btn-primary">Read the Writeup!</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <img class="card-img-top" style="width: 32vw; filter:blur(2px); height: 35vh;"
+                        src="./images/coVotes.png" alt="Voter analysis image">
+                    <h5 class="card-title">Voter Spatial Analysis</h5>
+                    <p class="card-text" style="width: 32vw;">I explore the spatial process associated with presidential
+                        voting in Colorado, alongside an exploration of 'Healthcare Access' as a covariate!.</p>
+                    <a href="/Projects/Analysis" class="btn btn-primary">See the Analysis!</a>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Write_Quickly!</h5>
+                    <p class="card-text">An in-browser writing tool I made to encourage writing fast.</p>
+                    <a href="/Projects/WriteQuickly" class="btn btn-primary">Try it out!</a>
+                </div>
             </div>
         </div>
-    
-        <div class="card">
-            <div class="card-body">
-                <img class="card-img-top img-thumbnail" style="width: 32vw;" src="./images/coVotes.png" alt="Voter analysis image">
-                <h5 class="card-title">Voter Spatial Analysis</h5>
-                <p class="card-text" style="width: 32vw;">I explore the spatial process associated with presidential voting in Colorado, alongside an exploration of 'Healthcare Access' as a covariate!.</p>
-                <a href="/Projects/Analysis" class="btn btn-primary">See the Analysis!</a>
-            </div>
-        </div>
-    
-    @* TODO: Coming soon! *@
-        @* <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div> *@
+    </div>
 </div>
-
 @code {
 
 }

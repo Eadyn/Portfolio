@@ -1,0 +1,33 @@
+.wq {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    color: white;
+    height: 85vh;
+}
+
+button {
+    background-color: #08f;
+    color: white;
+    border: none; 
+    padding: 10px 20px;
+    font-size: 16px; 
+    border-radius: 5px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    background-color: #004494; 
+}
+
+button:focus {
+    outline: none; 
+    box-shadow: 0 0 5px #0056b3;
+}
