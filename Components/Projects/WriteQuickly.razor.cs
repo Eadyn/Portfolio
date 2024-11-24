@@ -14,6 +14,9 @@ namespace WriteQuickly.Pages.Projects
         {
             try
             {
+                
+                
+                Console.WriteLine("Copying text to clipboard: " + Text);
                 await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", Text);
             }
             catch (Exception ex)
