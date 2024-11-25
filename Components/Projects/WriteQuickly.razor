@@ -1,11 +1,12 @@
 ﻿@page "/Projects/WriteQuickly"
 @inject IJSRuntime JSRuntime
 @inherits WriteQuicklyBase
+
 @namespace WriteQuickly.Pages.Projects
 
-<div class="wq">
+<div class="wq" style="background-color:@GetBackgroundColor()">
     <div class="container">
-        <div class="row fw-bold">
+        <div class="row fw-bold" style="background-color: #66424d46; padding-top: 5px; padding-bottom: 2px;">
             <div class="col">
                 <h1>WriteQuickly</h1>
             </div>
@@ -24,7 +25,8 @@
         </div>
 
         <div class="input-group">
-            <textarea class="form-control" aria-label="With textarea" placeholder="Write here!" cols="40" rows="8" @bind="Text"/>
+            <textarea class="form-control" aria-label="With textarea" placeholder="Write here!" cols="40" rows="8"
+                @bind="Text" @bind:after="ResetState" @onkeydown="ResetState" />
         </div>
 
         <br />
