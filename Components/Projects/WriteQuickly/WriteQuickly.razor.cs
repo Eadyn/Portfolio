@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Timers;
 
-namespace WriteQuickly.Pages.Projects
+namespace WriteQuickly
 {
     public enum currentState
     {

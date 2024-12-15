@@ -1,0 +1,214 @@
+@import '_content/Blazor.Bootstrap/Blazor.Bootstrap.bundle.scp.css';
+
+/* _content/portfolio/Components/Layout/MainLayout.razor.rz.scp.css */
+.topnav[b-e4bknzrspz] {
+    align-items: baseline;
+    position: sticky;
+    top: 0;
+}
+
+
+.bi[b-e4bknzrspz] {
+    display: inline-block;
+    /* position: relative; */
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.75rem;
+    top: -1px;
+    background-size: cover;
+}
+
+.nav-item[b-e4bknzrspz] {
+    font-size: 1.2rem;
+    padding-bottom: 0.5rem;
+    color:white;
+}
+
+
+@media (max-width: 640.98px) {
+    .topnav[b-e4bknzrspz] {
+        justify-content: space-between;
+    }
+
+    .topnav[b-e4bknzrspz]  a, .top-row[b-e4bknzrspz]  .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+
+    .topnav[b-e4bknzrspz] {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .topnav.auth[b-e4bknzrspz]  a:first-child {
+        /* flex: 1;
+        text-align: right; */
+        width: 0;
+    }
+
+    article[b-e4bknzrspz] {
+        padding-left: 0rem;
+        padding-right: 0rem;
+    }
+}
+
+#blazor-error-ui[b-e4bknzrspz] {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss[b-e4bknzrspz] {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+/* _content/portfolio/Components/Pages/About.razor.rz.scp.css */
+.about[b-m31ffi6o3y] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    background-color: darkslategray;
+    color: white;
+}
+
+/* Slideshow container */
+.slideshow-container[b-m31ffi6o3y] {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+  }
+  
+/* The dots/bullets/indicators */
+.dot[b-m31ffi6o3y] {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+.active[b-m31ffi6o3y] {
+    background-color: #717171;
+}
+
+.caption[b-m31ffi6o3y] {
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    color: white; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    text-align: center;
+}
+
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+    .text[b-m31ffi6o3y] {font-size: 11px}
+}
+/* _content/portfolio/Components/Pages/Footer.razor.rz.scp.css */
+.footer[b-1d8gmiwjpa] {
+    background-color: #08F;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    /* position: fixed;
+    bottom: 0; */
+    width: 100%;
+}
+/* _content/portfolio/Components/Pages/Home.razor.rz.scp.css */
+.box[b-o15ip0ll60] {
+    box-sizing: border-box;
+  }
+  
+  .bg-image[b-o15ip0ll60] {
+    /* The image used */
+    background-image: url("./images/code.png");
+  
+    /* Add the blur effect */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  
+    /* Full height */
+    height: 100vh;
+    /* width: 100%; */
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  /* Position text in the middle of the page/image */
+  .bg-text[b-o15ip0ll60] {
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+  }
+/* _content/portfolio/Components/Pages/Projects.razor.rz.scp.css */
+.projects[b-jx9jaj1bey] {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* justify-content: center; */
+    margin-top: 50px;
+    padding-top: 8vh;
+}
+/* _content/portfolio/Components/Projects/WriteQuickly.razor.rz.scp.css */
+.wq[b-vxx9dzjyl1] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    color: white;
+    height: 85vh;
+}
+
+button[b-vxx9dzjyl1] {
+    background-color: #08f;
+    color: white;
+    border: none; 
+    padding: 10px 20px;
+    font-size: 16px; 
+    border-radius: 5px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+}
+
+button:hover[b-vxx9dzjyl1] {
+    background-color: #0056b3;
+}
+
+button:active[b-vxx9dzjyl1] {
+    background-color: #004494; 
+}
+
+button:focus[b-vxx9dzjyl1] {
+    outline: none; 
+    box-shadow: 0 0 5px #0056b3;
+}

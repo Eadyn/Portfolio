@@ -1,0 +1,31 @@
+﻿@page "/Projects/BookRecommender"
+@inherits BookRecommenderBase
+
+@namespace BookRecommender
+
+<div class="book-recommender">
+    <h1>Book Recommendations</h1>
+
+    <div class="col">
+
+    <input type="text" @bind="book" placeholder="Enter a book" />
+
+    <button @onclick="AddBook">Add to List</button>
+    </div>
+
+    <div class="col">
+        <ul>
+            @foreach (var (item, transformedItem) in bookList.Zip(transformedBookList))
+            {
+                <li>
+                <div class="row px-3">
+                    @item
+                    @foreach (var f in transformedItem.Features) @f
+                </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <button @onclick="ClearList">Clear List</button>
+</div>
