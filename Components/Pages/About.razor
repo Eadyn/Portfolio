@@ -5,27 +5,6 @@
 <div class="mt-5 about" style="height: 100vh" id="About">
     <div class="col-md-9">
         <h1 class="font-weight-bold text-center">About Me</h1>
-
-        @* <div class="slideshow">
-            @for (int i = 0; i < SlideCount; i++)
-            {
-                <div style="display: @(i == slideIndex ? "block" : "none")">
-                    <div style="position: relative; display: inline-block;">
-                        <img src="./about_img@(i).jpg" alt="Slide @(i)" style="height: 250px;">
-                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; color: white; background-color: rgba(0, 0, 0, 0.5); text-align: center;">
-                            <strong>@(captionList[i])</strong>
-                        </div>
-                    </div>
-                </div>
-            }
-            <br>
-            <div>
-                <span class="dot @(slideIndex == 0 ? "active" : "")" @onmouseover="(() => SetSlide(0))"></span>
-                <span class="dot @(slideIndex == 1 ? "active" : "")" @onmouseover="(() => SetSlide(1))"></span>
-                <span class="dot @(slideIndex == 2 ? "active" : "")" @onmouseover="(() => SetSlide(2))"></span>
-            </div>
-
-        </div> *@
         <div class="text-center">
             <img src="./about_img0.jpg" alt="Me!" style="height: auto; width: 250px; z-index: 11;"
                 class="img-fluid rounded-circle img-thumbnail ">
@@ -54,24 +33,3 @@
             class="btn btn-secondary mt-3">Add me on LinkedIn!</a>
     </div>
 </div>
-
-
-@code {
-    private int slideIndex = 0;
-    private int selectedSlide = 0;
-    private int SlideCount = 3;
-
-    private string[] captionList = new string[]
-    {
-"Me!",
-"Also Me!",
-"My Cat Goop!"
-    };
-
-
-    private void SetSlide(int index)
-    {
-        slideIndex = index;
-        Console.WriteLine($"Slide index set to: {index}");
-    }
-}

@@ -1,51 +1,63 @@
-﻿@page "/Projects/"
+﻿@page "/Projects"
 
-<div id="Projects" style="height: 100vh; margin-top: 50px;">
-    <div class="col-md-9 projects">
-        <h1 class="font-weight-bold">Projects</h1>
-
-        @* Begin project cards 3 per row*@
-        <div class="row justify-content-evenly" style="width: 96vw;">
+<div class="container mt-5">
+    <h1 class="mb-4">Projects</h1>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var project in projects)
+        {
             <div class="col">
-            <div class="card">
-                <img class="card-img-top" style="width: 22vw; filter:blur(2px); height: 35vh;" src="./images/code.png"
-                    alt="Website code image">
-                <div class="card-body">
-                    <h5 class="card-title">Portfolio Website</h5>
-                    <p class="card-text">I work through the tools and technologies I used in setting up this website!
-                    </p>
-                    <a href="/Projects/Website" class="btn btn-primary">Read the Writeup!</a>
+                <div class="card h-100">
+                    <img src="@project.ImageUrl" class="card-img-top" alt="@project.ImageAlt">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@project.Title</h5>
+                        <p class="card-text flex-grow-1">@project.Description</p>
+                        <a href="@project.Url" class="btn btn-primary mt-auto">@project.ButtonText</a>
+                    </div>
                 </div>
             </div>
-            </div>
-
-            <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <img class="card-img-top" style="width: 22vw; filter:blur(2px); height: 35vh;"
-                        src="./images/coVotes.png" alt="Voter analysis image">
-                    <h5 class="card-title">Voter Spatial Analysis</h5>
-                    <p class="card-text" style="width: 22vw; word-wrap: normal; overflow-wrap: anywhere;">I explore the spatial process associated with presidential
-                        voting in Colorado, alongside an exploration of 'Healthcare Access' as a covariate.</p>
-                    <a href="/Projects/Analysis" class="btn btn-primary">See the Analysis!</a>
-                </div>
-            </div>
-            </div>
-
-            <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <img class="card-img-top" style="width: 22vw; filter:blur(2px); height: 35vh;"
-                        src="./images/timer.webp" alt="Timer image">
-                    <h5 class="card-title">Write_Quickly!</h5>
-                    <p class="card-text" style="width: 22vw;">An in-browser writing tool I made to encourage writing on a deadline.</p>
-                    <a href="/Projects/WriteQuickly" class="btn btn-primary">Try it out!</a>
-                </div>
-            </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
-@code {
 
+@code {
+    private List<Project> projects = new List<Project>
+    {
+        new Project 
+        { 
+            Title = "Portfolio Website", 
+            Description = "I work through the tools and technologies I used in setting up this website!",
+            ImageUrl = "./images/code.png",
+            ImageAlt = "Website code image",
+            Url = "/Projects/Website",
+            ButtonText = "Read the Writeup!"
+        },
+        new Project 
+        { 
+            Title = "Voter Spatial Analysis", 
+            Description = "I explore the spatial process associated with presidential voting in Colorado, alongside an exploration of 'Healthcare Access' as a covariate.",
+            ImageUrl = "./images/coVotes.png",
+            ImageAlt = "Voter analysis image",
+            Url = "/Projects/Analysis",
+            ButtonText = "See the Analysis!"
+        },
+        new Project 
+        { 
+            Title = "Write_Quickly!", 
+            Description = "An in-browser writing tool I made to encourage writing on a deadline.",
+            ImageUrl = "./images/timer.webp",
+            ImageAlt = "Timer image",
+            Url = "/Projects/WriteQuickly",
+            ButtonText = "Try it out!"
+        }
+    };
+
+    public class Project
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public string ImageAlt { get; set; }
+        public string Url { get; set; }
+        public string ButtonText { get; set; }
+    }
 }

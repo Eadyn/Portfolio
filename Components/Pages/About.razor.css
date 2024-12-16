@@ -44,3 +44,14 @@
 @media only screen and (max-width: 300px) {
     .text {font-size: 11px}
 }
+
+/* On smaller screens, make sure about get's the space it needs */
+/* @media only screen and (max-height: 500px) {
+    .about {
+        margin-top: 100px;
+        margin-bottom: 100px;
+
+        
+
+    }
+} */
