@@ -1,78 +1,81 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.ML;
-using Microsoft.ML.Transforms.Text;
 using Microsoft.AspNetCore.Components;
-using Microsoft.ML.Data;
+using Microsoft.JSInterop;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
-
-namespace BookRecommender
+namespace portfolio.Components.Projects.BookRecommender
 {
-    public partial class BookRecommenderBase : ComponentBase
+    public partial class BookRecommender : ComponentBase
     {
+        [Inject]
+        private BookService bookService { get; set; }
 
-        MLContext mlContext;
-        List<TextData> emptySamples;
-        IDataView emptyDataView;
+        [Inject]
+        private IJSRuntime JSRuntime { get; set; }
 
-        EstimatorChain<WordEmbeddingTransformer> textPipeline;
-        ITransformer textTransformer;
-        private PredictionEngine<TextData, TransformedTextData> predictionEngine;
+        private string BookTitle { get; set; }
+        private List<string> CorrectedTitles { get; set; }
+        private List<string> SimilarBooks { get; set; }
 
-        [Parameter] public string book { get; set; } = string.Empty;
+        private string SelectedTitle { get; set; }
 
-        public static List<string> bookList = new List<string>();
-
-        public static List<TransformedTextData> transformedBookList = new List<TransformedTextData>();
-
-        protected override void OnInitialized()
+        private async Task CorrectTitle()
         {
-            mlContext = new MLContext();
-            emptySamples = new List<TextData>();
-            emptyDataView = mlContext.Data.LoadFromEnumerable(emptySamples);
-            textPipeline = mlContext.Transforms.Text.NormalizeText("Text")
-            .Append(mlContext.Transforms.Text.TokenizeIntoWords("Tokens",
-                "Text"))
-            .Append(mlContext.Transforms.Text.ApplyWordEmbedding("Features",
-                inputColumnName: "Tokens", customModelFile: "wwwroot/25d.txt"));
-            var textTransformer = textPipeline.Fit(emptyDataView);
-
-            predictionEngine = mlContext.Model.CreatePredictionEngine<TextData,
-            TransformedTextData>(textTransformer);
-        }
-
-        public class TextData
-        {
-            public string Text { get; set; }
-        }
-
-        public class TransformedTextData : TextData
-        {
-            public float[] Features { get; set; }
-        }
-
-
-        private TransformedTextData TransformText(string text)
-        {
-            var textData = new TextData { Text = text };
-            var transformedData = predictionEngine.Predict(textData);
-            return transformedData;
-        }
-
-        public void AddBook()
-        {
-            if (book.Trim() != string.Empty)
+            try
             {
-                bookList.Add(book);
-                transformedBookList.Add(TransformText(book));
-                book = string.Empty;
+                var response = await bookService.GetCorrectedTitle(BookTitle);
+                if (response.Any() && response[0].Contains("Title"))
+                {
+                    CorrectedTitles = response;
+                    CorrectedTitles = CorrectedTitles.ConvertAll(d => IsolateTitle(d));
+                }
+                else
+                {
+                    JSRuntime.InvokeVoidAsync("alert", "No possible completions found.");   
+                    
+                    foreach (var title in response)
+                    {
+                        Console.WriteLine(title);
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                JSRuntime.InvokeVoidAsync("alert", e.Message);
+            }
+        }
+        private async Task GetRecommendations()
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(SelectedTitle))
+                {
+                    SimilarBooks = await bookService.GetSimilarBooks(SelectedTitle);
+                    SimilarBooks = SimilarBooks.ConvertAll(d => IsolateTitle(d));
+                }
+            }
+            catch (Exception e)
+            {
+                JSRuntime.InvokeVoidAsync("alert", e.Message);
             }
         }
 
-        public void ClearList()
+        private void SelectTitle(string title)
         {
-            bookList.Clear();
+            SelectedTitle = title;
+        }
+
+        private bool IsSelected(string title)
+        {
+            return title == SelectedTitle;
+        }
+        private static string IsolateTitle(string title)
+        {
+            // return title.Split(":")[1].Remove(0, 1).Remove(title.Split(":")[1].Length - 2, 2);
+            var match = Regex.Match(title, "\"Title\":\"(.*?)\"");
+            return match.Success ? match.Groups[1].Value : string.Empty;
         }
     }
 }
