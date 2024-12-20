@@ -13,6 +13,6 @@ services:
     ports:
       - 5046:5046
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
