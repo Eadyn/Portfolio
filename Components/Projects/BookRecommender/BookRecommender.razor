@@ -1,8 +1,9 @@
 ﻿@page "/Projects/BookRecommender"
+@using static portfolio.Components.Projects.BookRecommender.BookCard
 @inject BookService BookService
 
 <div class="book-recommender">
-    <h1 class="title">Book Recommendation System</h1>
+    <h1 class="title">BlurbBridge: AI Book Recommendations!</h1>
     <h3 class="subtitle">Enter a book title to get similar recommendations</h3>
     <div class="search-container">
         <input type="text" class="search-input" placeholder="Enter a book title" @bind="BookTitle" @bind:event="oninput" />
@@ -49,7 +50,7 @@
                 {
                     if (!string.IsNullOrEmpty(book))
                     {
-                        <a class="book-item">
+                        <a class="book-item" @onclick="() => ShowBook(book)" data-title="@book">
                             <i class="fas fa-book"></i>
                             <span>@book</span>
                         </a>
@@ -58,4 +59,23 @@
             </div>
         </div>
     }
+
+    <BookCard CurrentBook="SelectedBook" IsVisible="isModalVisible" IsVisibleChanged="(visible) => isModalVisible = visible" />
 </div>
+
+@code {
+    private Book SelectedBook { get; set; }
+
+    private bool isModalVisible = false;
+    private void ShowBook(string book)
+    {
+        Console.WriteLine($"Showing book: {book}");
+        SelectedBook = new Book { Title = book };
+        isModalVisible = true;
+    }
+
+    private void IsVisibleChanged(bool visible)
+    {
+        isModalVisible = visible;
+    }
+}

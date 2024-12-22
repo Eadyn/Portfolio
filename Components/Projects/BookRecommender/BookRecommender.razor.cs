@@ -28,7 +28,10 @@ namespace portfolio.Components.Projects.BookRecommender
                 if (response.Any() && response[0].Contains("Title"))
                 {
                     CorrectedTitles = response;
-                    CorrectedTitles = CorrectedTitles.ConvertAll(d => IsolateTitle(d));
+                    CorrectedTitles = CorrectedTitles.ConvertAll(d => IsolateTitle(d.Trim()));
+
+                    // Remove all empty strings
+                    CorrectedTitles.RemoveAll(string.IsNullOrWhiteSpace);
                 }
                 else
                 {
@@ -53,7 +56,7 @@ namespace portfolio.Components.Projects.BookRecommender
                 if (!string.IsNullOrWhiteSpace(SelectedTitle))
                 {
                     SimilarBooks = await bookService.GetSimilarBooks(SelectedTitle);
-                    SimilarBooks = SimilarBooks.ConvertAll(d => IsolateTitle(d));
+                    SimilarBooks = SimilarBooks.ConvertAll(d => IsolateTitle(d.Trim()));
                 }
             }
             catch (Exception e)
