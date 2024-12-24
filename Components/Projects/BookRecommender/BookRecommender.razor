@@ -70,7 +70,7 @@
     private void ShowBook(string book)
     {
         Console.WriteLine($"Showing book: {book}");
-        SelectedBook = new Book { Title = book };
+        SelectedBook = new Book { Title = book, Description = "Loading...", CoverImageUrl = "images/loading.gif" };
         isModalVisible = true;
     }
 
