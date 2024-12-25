@@ -55,8 +55,8 @@ namespace portfolio.Components.Projects.BookRecommender
             {
                 if (!string.IsNullOrWhiteSpace(SelectedTitle))
                 {
-                    SimilarBooks = await bookService.GetSimilarBooks(SelectedTitle);
-                    SimilarBooks = SimilarBooks.ConvertAll(d => IsolateTitle(d.Trim()));
+                    var response = await bookService.GetSimilarBooks(SelectedTitle);
+                    SimilarBooks = response;
                 }
             }
             catch (Exception e)

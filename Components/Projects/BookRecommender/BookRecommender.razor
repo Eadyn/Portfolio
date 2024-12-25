@@ -8,7 +8,6 @@
     <div class="search-container">
         <input type="text" class="search-input" placeholder="Enter a book title" @bind="BookTitle" @bind:event="oninput" />
         <button class="search-button" @onclick="CorrectTitle">
-            @* <i class="fas fa-search"></i> Get Recommendations *@
             <img src="images/search.png" alt="Search" style="width: 32px;"/>
         </button>
     </div>
@@ -30,12 +29,12 @@
         @if (!string.IsNullOrEmpty(SelectedTitle))
         {
             <div>
-            <button class="search-button rounded-3" @onclick="GetRecommendations">
-                <strong>
-                    <i class="fas fa-search"></i> Find Similar Books!
-                </strong>
-            </button>
-        </div>
+                <button class="search-button rounded-3" @onclick="GetRecommendations">
+                    <strong>
+                        <i class="fas fa-search"></i> Find Similar Books!
+                    </strong>
+                </button>
+            </div>
         }
         <br />
         
@@ -60,22 +59,28 @@
         </div>
     }
 
-    <BookCard CurrentBook="SelectedBook" IsVisible="isModalVisible" IsVisibleChanged="(visible) => isModalVisible = visible" />
+    <BookCard CurrentBook="SelectedBook" IsVisible="modalVisible" IsVisibleChanged="(visible) => modalVisible = visible" />
 </div>
 
 @code {
-    private Book SelectedBook { get; set; }
+    public Book SelectedBook { get; set; }
 
-    private bool isModalVisible = false;
+    private bool modalVisible = false;
     private void ShowBook(string book)
     {
-        Console.WriteLine($"Showing book: {book}");
-        SelectedBook = new Book { Title = book, Description = "Loading...", CoverImageUrl = "images/loading.gif" };
-        isModalVisible = true;
+        SelectedBook = new Book { Title = book, Description = "Loading...", CoverImageUrl = "./images/generic_book.png" };
+        modalVisible = true;
+        StateHasChanged();
+
+        BookService.GetBookDetails(SelectedBook).ContinueWith(task =>
+        {
+            SelectedBook = task.Result;
+            StateHasChanged();
+        });
     }
 
     private void IsVisibleChanged(bool visible)
     {
-        isModalVisible = visible;
+        modalVisible = visible;
     }
 }
