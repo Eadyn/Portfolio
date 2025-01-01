@@ -7,7 +7,7 @@
     <InfoModal/>
 
     <h1 class="title">BlurbBridge: AI Book Recommendations!</h1>
-    <h3 class="subtitle">Enter a description to get similar book recommendations</h3>
+    <h3 class="subtitle">Enter a description of a type of book you'd like to read and get similar book recommendations</h3>
     <div class="search-container">
         <textarea class="search-input" placeholder="Enter a description (max 500 characters)" @bind="Description" @bind:event="oninput" maxlength="500" rows="4"></textarea>
         <button class="search-button" @onclick="GetRecommendations">
@@ -29,6 +29,7 @@
                 {
                     <div class="book-item" @onclick="() => ShowBook(book)">
                         <p>@book.Title</p>
+                        <img src="@book.CoverImg" alt="@book.Title" style="max-width: 64px; align-self: flex-end;"/>
                     </div>
                 }
             </div>
