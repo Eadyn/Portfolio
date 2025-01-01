@@ -43,9 +43,6 @@ namespace WriteQuickly
 
         protected async override void OnInitialized()
         {
-
-            await JSRuntime.InvokeVoidAsync("alert", "The Most Dangerous Writing App inspired application that encourages you to write a first draft quickly. After 7 seconds without typing, you reach Yellow mode, and after another 7 seconds, you reach Red mode. Try to stay in Green!");
-            // JSRuntime.InvokeVoidAsync("bootstrap.Toast.getOrCreateInstance(document.getElementById('toast')).show()");
             timer = new System.Timers.Timer(100);
             timer.Elapsed += SwitchSettings;
             timer.AutoReset = true;
