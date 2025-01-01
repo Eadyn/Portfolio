@@ -1,0 +1,90 @@
+@namespace Portfolio.Components
+@using Microsoft.JSInterop
+
+<style>
+    .info-modal-content {
+        padding: 20px;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .info-modal-header {
+        border-bottom: 1px solid #dee2e6;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .info-section {
+        margin-bottom: 1rem;
+    }
+
+    .dont-show-again {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+</style>
+
+@if (IsVisible)
+{
+    <div class="modal-backdrop" @onclick="@(() => Close(false))"></div>
+    <div class="modal-card">
+        <div class="info-modal-content">
+            <div class="info-modal-header">
+                <h4>Welcome to BlurbBridge!</h4>
+            </div>
+            
+            <div class="info-section">
+                <h5>About Our Book Database</h5>
+                <p>Welcome to our book recommendation system! Please note that our database:</p>
+                <ul>
+                    <li>Is somewhat limited having approximately 1.02 million books (of >10 million published each year)</li>
+                    <li>Contains books published up until 2023</li>
+                    <li>Is continuously being updated and improved</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h5>How It Works</h5>
+                <p>Enter a book title you enjoy, and, if it's in our database, we'll suggest similar books based on a vector search of the description! This approach is somewhat unique and should generate some interesting suggestions!</p>
+                <p>You don't have to enter the whole title, and we'll try to match based on titles in our dataset</p>
+            </div>
+
+            <div class="dont-show-again">
+                <input type="checkbox" id="dontShowAgain" @bind="DontShowAgain" />
+                <label for="dontShowAgain">Don't show this message again</label>
+            </div>
+
+            <button class="btn btn-primary mt-3" @onclick="@(() => Close(true))">Got it!</button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool IsVisible { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
+    private bool DontShowAgain { get; set; }
+
+    private async Task Close(bool fromButton)
+    {
+        if (fromButton && DontShowAgain)
+        {
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "hideBookRecommenderInfo", "true");
+        }
+        await IsVisibleChanged.InvokeAsync(false);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var hideInfo = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "hideBookRecommenderInfo");
+        IsVisible = hideInfo != "true";
+    }
+}

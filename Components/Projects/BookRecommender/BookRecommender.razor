@@ -1,43 +1,21 @@
 ﻿@page "/BookRecommender"
-@using static portfolio.Components.Projects.BookRecommender.BookCard
-@inject BookService BookService
+@inject HttpClient HttpClient
+@inject IJSRuntime JSRuntime
+@using Books
 
 <div class="book-recommender">
     <h1 class="title">BlurbBridge: AI Book Recommendations!</h1>
-    <h3 class="subtitle">Enter a book title to get similar recommendations</h3>
+    <h3 class="subtitle">Enter a description to get similar book recommendations</h3>
     <div class="search-container">
-        <input type="text" class="search-input" placeholder="Enter a book title" @bind="BookTitle" @bind:event="oninput" />
-        <button class="search-button" @onclick="CorrectTitle">
+        <textarea class="search-input" placeholder="Enter a description (max 500 characters)" @bind="Description" @bind:event="oninput" maxlength="500" rows="4"></textarea>
+        <button class="search-button" @onclick="GetRecommendations">
             <img src="images/search.png" alt="Search" style="width: 32px;"/>
         </button>
     </div>
 
-    @if (CorrectedTitles != null && CorrectedTitles.Any()) 
+    @if (IsLoading)
     {
-        <div class="corrected-titles">
-            <div class="book-list">
-                @foreach (var title in CorrectedTitles)
-                {
-                    <a class="book-item @(IsSelected(title) ? "active" : "")" @onclick="() => SelectTitle(title)" data-title="@title">
-                        <i class="fas fa-book"></i>
-                        <span>@title</span>
-                    </a>
-                }
-            </div>
-        </div>
-        <br />
-        @if (!string.IsNullOrEmpty(SelectedTitle))
-        {
-            <div>
-                <button class="search-button rounded-3" @onclick="GetRecommendations">
-                    <strong>
-                        <i class="fas fa-search"></i> Find Similar Books!
-                    </strong>
-                </button>
-            </div>
-        }
-        <br />
-        
+        <div class="loading">Loading...</div>
     }
 
     @if (SimilarBooks != null && SimilarBooks.Any())
@@ -47,40 +25,70 @@
             <div class="book-list">
                 @foreach (var book in SimilarBooks)
                 {
-                    if (!string.IsNullOrEmpty(book))
-                    {
-                        <a class="book-item" @onclick="() => ShowBook(book)" data-title="@book">
-                            <i class="fas fa-book"></i>
-                            <span>@book</span>
-                        </a>
-                    }
+                    <div class="book-item" @onclick="() => ShowBook(book)">
+                        <p>@book.Title</p>
+                    </div>
                 }
             </div>
         </div>
     }
-
-    <BookCard CurrentBook="SelectedBook" IsVisible="modalVisible" IsVisibleChanged="(visible) => modalVisible = visible" />
+    <BookCard CurrentBook="SelectedBook" IsVisible="IsBookCardVisible" IsVisibleChanged="(visible) => IsBookCardVisible = visible" />
 </div>
 
 @code {
-    public Book SelectedBook { get; set; }
+    private string Description { get; set; }
+    private List<BookResult> SimilarBooks { get; set; }
+    private bool IsLoading { get; set; } = false;
+    private HttpClient _httpClient;
 
-    private bool modalVisible = false;
-    private void ShowBook(string book)
+    private BookResult SelectedBook { get; set; }
+    private bool IsBookCardVisible { get; set; }
+
+    protected override void OnInitialized()
     {
-        SelectedBook = new Book { Title = book, Description = "Loading...", CoverImageUrl = "./images/generic_book.png" };
-        modalVisible = true;
-        StateHasChanged();
-
-        BookService.GetBookDetails(SelectedBook).ContinueWith(task =>
+        var handler = new HttpClientHandler
         {
-            SelectedBook = task.Result;
-            StateHasChanged();
-        });
+            ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+        };
+        _httpClient = new HttpClient(handler);
+        _httpClient.BaseAddress = new Uri("https://api.eadynt.com/");
     }
 
-    private void IsVisibleChanged(bool visible)
+    private async Task GetRecommendations()
     {
-        modalVisible = visible;
+        if (string.IsNullOrWhiteSpace(Description) || Description.Length > 500)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Please enter a valid description (1-500 characters).");
+            return;
+        }
+
+        IsLoading = true;
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync("https://api.eadynt.com/similar", new { text = Description });
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<SimilarBooksResponse>();
+            SimilarBooks = result.Results;
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", $"An error occurred: {ex.Message}");
+            SimilarBooks = null;
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    public class SimilarBooksResponse
+    {
+        public List<BookResult> Results { get; set; }
+    }
+
+    public void ShowBook(BookResult book)
+    {
+        SelectedBook = book;
+        IsBookCardVisible = true;
     }
 }
