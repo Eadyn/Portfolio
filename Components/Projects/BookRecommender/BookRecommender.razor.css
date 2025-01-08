@@ -105,3 +105,24 @@
     background-color: #007bff;
     color: white;
 }
+
+.info-pane {
+    flex: 1;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-left: 1px solid #ddd;
+}
+
+.technical-details {
+    margin-top: 20px;
+}
+
+.technical-details summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.technical-details ul {
+    padding-left: 20px;
+}

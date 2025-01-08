@@ -4,38 +4,61 @@
 @using Books
 
 <div class="book-recommender">
-    <InfoModal/>
-
-    <h1 class="title">BlurbBridge: AI Book Recommendations!</h1>
-    <h3 class="subtitle">Enter a description of a type of book you'd like to read and get similar book recommendations</h3>
-    <div class="search-container">
-        <textarea class="search-input" placeholder="Enter a description (max 500 characters)" @bind="Description" @bind:event="oninput" maxlength="500" rows="4"></textarea>
-        <button class="search-button" @onclick="GetRecommendations">
-            <img src="images/search.png" alt="Search" style="width: 32px;"/>
-        </button>
-    </div>
-
-    @if (IsLoading)
-    {
-        <div class="loading">Loading...</div>
-    }
-
-    @if (SimilarBooks != null && SimilarBooks.Any())
-    {
-        <div class="similar-books">
-            <h2 class="section-title">Similar Books</h2>
-            <div class="book-list">
-                @foreach (var book in SimilarBooks)
-                {
-                    <div class="book-item" @onclick="() => ShowBook(book)">
-                        <p>@book.Title</p>
-                        <img src="@book.CoverImg" alt="@book.Title" style="max-width: 64px; align-items: right;"/>
-                    </div>
-                }
-            </div>
+    <div class="main-content">
+        <h1 class="title">BlurbBridge: AI Book Recommendations!</h1>
+        <h3 class="subtitle">Enter a description of a type of book you'd like to read and get similar book recommendations</h3>
+        <div class="search-container">
+            <textarea class="search-input" placeholder="Enter a description (max 500 characters)" @bind="Description" @bind:event="oninput" maxlength="500" rows="4"></textarea>
+            <button class="search-button" @onclick="GetRecommendations">
+                <img src="images/search.png" alt="Search" style="width: 32px;"/>
+            </button>
         </div>
-    }
-    <BookCard CurrentBook="SelectedBook" IsVisible="IsBookCardVisible" IsVisibleChanged="(visible) => IsBookCardVisible = visible" />
+
+        @if (IsLoading)
+        {
+            <div class="loading">Loading...</div>
+        }
+
+        @if (SimilarBooks != null && SimilarBooks.Any())
+        {
+            <div class="similar-books">
+                <h2 class="section-title">Similar Books</h2>
+                <div class="book-list">
+                    @foreach (var book in SimilarBooks)
+                    {
+                        <div class="book-item" @onclick="() => ShowBook(book)">
+                            <p>@book.Title</p>
+                            <img src="@book.CoverImg" alt="@book.Title" style="max-width: 64px; align-items: right;"/>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @if (SimilarBooks == null || !SimilarBooks.Any())
+        {
+            <div class="info-pane">
+        <h2>How It Works</h2>
+        <p>BlurbBridge uses semantic search to find book recommendations based on your description. It analyzes the meaning and context of your input to find books with similar themes, styles, or content.</p>
+        
+        <h3>Example</h3>
+        <p>If you enter: "A young man with magical talent rises from a troubled childhood to become a notorious wizard, navigating a life marked by adventure, loss, and his pursuit of power.", you might get recommendations like "The Name of the Wind" by Patrick Rothfuss.</p>
+
+        <details class="technical-details">
+            <summary>Technical Details</summary>
+            <p>
+                BlurbBridge uses a combination of advanced techniques to provide accurate and relevant book recommendations:
+            </p>
+            <ul>
+                <li>Utilizes a BigQuery database of book descriptions and metadata</li>
+                <li>Employs Google's VertexAI vector embeddings for semantic similarity</li>
+                <li>Implements approximate neighbor search for fast search results</li>
+                <li>All of this is accessed through a Node.JS REST API at api.eadynt.com</li>
+            </ul>
+        </details>
+    </div>
+        }
+        <BookCard CurrentBook="SelectedBook" IsVisible="IsBookCardVisible" IsVisibleChanged="(visible) => IsBookCardVisible = visible" />
+    </div>
 </div>
 
 @code {
